@@ -1,0 +1,79 @@
+{% extends "bases/base.html" %}
+
+
+{% block content %}
+
+<div class="breadcrumb-area">
+    <h1>Manager</h1>
+
+    <ol class="breadcrumb">
+        <li class="item"><a href="{% url 'admins:dashboard' %}"><i class='bx bxs-user-pin'></i></a></li>
+
+        <li class="item">Manager</li>
+
+        <li class="item">List Manager</li>
+    </ol>
+</div>
+
+
+<div class="card mb-30">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h3>All Manager</h3>
+
+        {% for message in messages %}
+            <div class="alert {{ message.tags }} alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                <strong>{{ message }}  </strong>
+            </div>
+            {% endfor %}
+
+        
+    </div>
+
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">User</th>
+                        <th scope="col">First Name</th>
+                        <th scope="col">Last Name</th>
+                        <th scope="col">Phone</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for x in manager %}
+                    <tr>
+                        <th scope="row">{{ forloop.counter }}   <img src="{{ x.profile_picture.url }}" width="30" height="30" class="rounded-circle" alt="image"></th>
+                        <td>{{ x.user }}</td>
+                        <td>{{ x.first_name }}</td>
+                        <td>{{ x.last_name }}</td>
+                        <td>{{ x.phone }}</td>
+                        <td> 
+                            <a href="{% url 'admins:edit_manager' x.user.id %}"  data-toggle="tooltip" data-placement="bottom" title="Edit">
+                                <i class="bx bxs-edit"></i>
+                            </a>
+                            
+                            <a href="{% url 'admins:delete_manager' x.user.id %}" onclick="return confirm('Are you sure of delete this manager?');"  data-toggle="tooltip" data-placement="bottom" title="Delete">
+                                <i class="bx bxs-trash"></i>
+                            </a>
+                        
+                        
+                        </td>
+                    </tr>
+                    {% endfor %}
+                   
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+<!-- End -->
+
+
+
+{% endblock %}

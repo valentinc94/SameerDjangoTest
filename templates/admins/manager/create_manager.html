@@ -1,0 +1,91 @@
+{% extends "bases/base.html" %}
+{% load crispy_forms_tags %}
+
+
+{% block content %}
+<div class="breadcrumb-area">
+    <h1>Manager</h1>
+
+    <ol class="breadcrumb">
+        <li class="item"><a href="{% url 'admins:index' %}"><i class='bx bxs-user-pin'></i></a></li>
+
+        <li class="item">Manager</li>
+
+        {% if manager_user %}
+        <li class="item">Edit Manager</li>
+        {% else %}
+        <li class="item">Add Manager</li>
+        {% endif %}
+    </ol>
+</div>
+
+<div class="card mb-30">
+    <div class="card-header d-flex justify-content-between align-items-center">
+
+        {% if manager_user %}
+        <h3>Update Manager</h3>
+        {% else %}
+        <h3>Add Manager</h3>
+        {% endif %}
+        
+    </div>
+
+    {% if user_form.errors or manager_form.errors  %}
+    <br>
+    <div class="alert alert-danger alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span>
+        </button>
+        <strong>{{ user_form.errors }} </strong>
+        <strong>{{ manager_form.errors }} </strong>
+    </div>
+    {% endif %}
+    
+    <div class="card-body">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            {% if manager_user %}
+            <div class="form-group">
+                {{ manager_form.first_name|as_crispy_field }}
+            </div>
+            <div class="form-group">
+                {{ manager_form.last_name|as_crispy_field }}
+            </div>
+            <div class="form-group">
+                {{ manager_form.phone|as_crispy_field }}
+            </div>
+
+            {% else %}
+
+            <div class="form-group">
+                {{ user_form.username|as_crispy_field }}
+              
+            </div>
+            <div class="form-group">
+                {{ user_form.password1|as_crispy_field }}
+              
+            </div>
+            <div class="form-group">
+                {{ user_form.password2|as_crispy_field }}
+              
+            </div>
+            <div class="form-group">
+                {{ manager_form.first_name|as_crispy_field }}
+            </div>
+            <div class="form-group">
+                {{ manager_form.last_name|as_crispy_field }}
+            </div>
+            <div class="form-group">
+                {{ manager_form.phone|as_crispy_field }}
+            </div>
+
+            {% endif %}
+
+            <button type="submit" class="btn btn-primary">Update</button>
+        </form>
+
+    </div>
+</div>
+
+
+{% endblock %}

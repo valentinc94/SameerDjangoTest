@@ -1,0 +1,124 @@
+{% extends "bases/base.html" %}
+
+
+{% block content %}
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+
+<div class="breadcrumb-area">
+    <h1>Tasks</h1>
+
+    <ol class="breadcrumb">
+        <li class="item"><a href="{% url 'admins:dashboard' %}"><i class='bx bx-task'></i></a></li>
+
+        <li class="item">My Tasks</li>
+
+        <li class="item">My Tasks</li>
+    </ol>
+</div>
+
+
+<!-- Start -->
+            <div class="row">
+                <div class="col-lg-6 col-md-12">
+                    <div class="card mb-30">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h3>Tasks</h3>
+
+                        </div>
+
+                        <div class="card-body widget-todo-list">
+                            <ul>
+                                {% for x in task %}
+                                <li>
+                                    <div class="checkbox">
+                                        {% if x.is_finish == True %}
+                                        <input class="inp-cbx" id="cbx" type="checkbox" checked="checked" style="display: none;"/>
+                                        {% else %}
+                                        <input class="inp-cbx" id="cbx" type="checkbox" style="display: none;"/>
+                                        {% endif %}
+                                        <label class="cbx" for="cbx">
+                                            <span>
+                                                <svg width="12px" height="10px" viewbox="0 0 12 10">
+                                                    <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                                                </svg>
+                                            </span>
+                                        </label>
+                                    </div>
+
+                                    
+                                    <div class="todo-item-title">
+                                        <img src="{{ x.asign.profile_picture.url  }}" data-toggle="tooltip" data-placement="top" title="{{ x.asign }}" alt="image">
+                                        <h3>{{ x.name }}</h3>
+                                        <p>{{ x.description }}</p>
+                                    </div>
+  
+                                    <div class="todo-item-action">
+                                        <a type="button" data-url="{% url 'worker:finish_task' x.id  %}" class="open-modal"><i class='bx bx-edit-alt'></i></a>
+                                    </div>
+                                {% endfor %}
+
+                              
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-3 col-md-6">
+                    <div class="stats-card-box">
+                        <div class="icon-box">
+                            <i class='bx bx-bar-chart'></i>
+                        </div>
+                        <span class="sub-title">Tasks completed</span>
+                        <h3>{{ diference }}% <span class="badge"><i class='bx bx-up-arrow-alt'></i> {{ num_complete }}%</span></h3>
+
+                        <div class="progress-list">
+                            <div class="bar-inner">
+                                <div class="bar progress-line" data-width="{{ num_complete }}"></div>
+                            </div>
+
+                            <p>Departament: {{ worker.departament }}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6">
+                    <div class="stats-card-box">
+                        <div class="icon-box">
+                           <i class='bx bx-bar-chart-square'></i>
+                        </div>
+                        <span class="sub-title">Pending tasks</span>
+                        <h3>{{ diference_two }}% <span class="badge"><i class='bx bx-up-arrow-alt'></i> {{ num_incomplete }}%</span></h3>
+
+                        <div class="progress-list">
+                            <div class="bar-inner">
+                                <div class="bar progress-line" data-width="{{ num_incomplete }}"></div>
+                            </div>
+
+                            <p>Departament: {{ worker.departament }}</p>
+                        </div>
+                    </div>
+                </div>
+
+                
+            </div>
+            <!-- End -->
+<!-- End -->
+<div id="modal-div"></div>
+
+<script>
+var modalDiv = $("#modal-div");
+
+$(".open-modal").on("click", function() {
+  $.ajax({
+    url: $(this).attr("data-url"),
+    success: function(data) {
+      modalDiv.html(data);
+      $("#myEdit").modal();
+    }
+  });
+});
+</script>
+
+
+{% endblock %}

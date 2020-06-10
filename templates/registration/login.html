@@ -1,0 +1,60 @@
+{% extends "bases/base_login.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+        <!-- Start Login Area -->
+        <div class="login-area">
+            <div class="d-table">
+                <div class="d-table-cell">
+                    <div class="login-form">
+                        <div class="logo">
+                            <a ><img src="{% static 'assets/img/small-logo.png' %}" alt="image"></a>
+                             <span>Valentin</span>
+                        </div>
+
+                        <h2>Welcome</h2>
+
+                        <form method="post" autocomplete="off">
+                            {% csrf_token %}
+
+                            {% if form.errors %}
+                            <div class="alert alert-danger" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                <i class="mdi mdi-block-helper mr-2"></i> <strong>{{ form.errors }} </strong> 
+                            </div>
+
+                            {% endif %}
+
+                            <div class="form-group">
+                                <input type="text" name="username" autofocus class="textinput textInput form-control" placeholder="Email" required id="id_username">
+                                <span class="label-title"><i class='bx bx-user'></i></span>
+                            </div>
+
+                            <div class="form-group">
+                                 <input type="password" name="password" class="textinput textInput form-control" required placeholder="Password" id="id_password">
+                                 <span class="label-title"><i class='bx bx-lock'></i></span>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="remember-forgot">
+                                    <label class="checkbox-box">Remember me
+                                        <input type="checkbox">
+                                        <span class="checkmark"></span>
+                                    </label>
+
+                                </div>
+                            </div>
+
+                            <button type="submit" class="login-btn">Login</button>
+
+                            <p class="mb-0">Don’t have an account? <a href="{% url 'admins:signup_manager' %}">Sign Up as Manager</a> or </p>
+                            <p> <a href="{% url 'admins:signup_worker' %}">Sign Up as Worker </a></p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+{% endblock %}

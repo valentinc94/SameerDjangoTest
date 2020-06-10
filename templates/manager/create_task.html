@@ -1,0 +1,85 @@
+{% extends "bases/base.html" %}
+{% load crispy_forms_tags %}
+
+
+{% block content %}
+<div class="breadcrumb-area">
+    <h1>Create Task</h1>
+
+    <ol class="breadcrumb">
+        <li class="item"><a href="{% url 'admins:dashboard' %}"><i class='bx bx-task'></i></a></li>
+
+        <li class="item">Task</li>
+
+        {% if task %}
+        <li class="item">Edit Task</li>
+        {% else %}
+        <li class="item">Add Task</li>
+        {% endif %}
+    </ol>
+</div>
+
+<div class="card mb-30">
+    <div class="card-header d-flex justify-content-between align-items-center">
+
+        {% if task %}
+        <h3>Update Task</h3>
+        {% else %}
+        <h3>Add Task</h3>
+        {% endif %}
+        
+    </div>
+
+    {% if form.errors  %}
+    <br>
+    <div class="alert alert-danger alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span>
+        </button>
+        <strong>{{ form.errors }} </strong>
+    </div>
+    {% endif %}
+    
+    <div class="card-body">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            {% if task %}
+            <div class="form-group">
+               {{ form.name|as_crispy_field }}
+            </div>
+
+            <div class="form-group">
+               {{ form.description|as_crispy_field }}
+            </div>
+
+            <div class="form-group">
+                {{ form.worker|as_crispy_field }}
+            </div>
+            <div class="form-group">
+                {{ form.is_finish|as_crispy_field }}
+            </div>
+          
+            <button type="submit" class="btn btn-primary">Edit</button>
+            {% else %}
+            <div class="form-group">
+               {{ form.name|as_crispy_field }}
+            </div>
+
+            <div class="form-group">
+               {{ form.description|as_crispy_field }}
+            </div>
+
+            <div class="form-group">
+                {{ form.worker|as_crispy_field }}
+            </div>
+          
+            
+            <button type="submit" class="btn btn-primary">Create</button>
+            {% endif %}
+        </form>
+
+    </div>
+</div>
+
+
+{% endblock %}

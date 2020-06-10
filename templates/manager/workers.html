@@ -1,0 +1,91 @@
+{% extends "bases/base.html" %}
+
+
+{% block content %}
+
+<div class="breadcrumb-area">
+    <h1>Worker</h1>
+
+    <ol class="breadcrumb">
+        <li class="item"><a href="{% url 'admins:dashboard' %}"><i class='bx bxs-user-pin'></i></a></li>
+
+        <li class="item">Worker</li>
+
+        <li class="item">My Workers</li>
+    </ol>
+</div>
+
+
+<div class="card mb-30">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h3>All Workers</h3>
+
+        {% for message in messages %}
+            <div class="alert {{ message.tags }} alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                <strong>{{ message }}  </strong>
+            </div>
+            {% endfor %}
+
+        
+    </div>
+
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Worker</th>
+                        <th scope="col">Names</th>
+                        <th scope="col">Departament</th>
+                        <th scope="col">Phone</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Tasks completed</th>
+                        <th scope="col">Pending tasks</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for x in workers %}
+                    <tr>
+                        <th scope="row">{{ forloop.counter }} </th>
+                        <td>{{ x.user }}</td>
+                        <td>{{ x }}</td>
+                        <td>{{ x.departament }}</td>
+                        <td>{{ x.phone }}</td>
+                        {% if x.is_active == True %}
+                        <td>is Active</td>
+                        {% else %}
+                        <th>Without Activity</td>
+                        {% endif %}
+                        
+                        {% for y in x.task_set.all %} 
+                        {% if forloop.last %}   
+                        <td>   {{ y.task_complete }} </td> 
+                         <td>{{ y.task_pending }}</td> 
+
+                         {% endif %}
+                         {% endfor %}
+                        
+                        
+
+                        
+
+                        
+
+
+                    </tr>
+                    {% endfor %}
+                   
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+<!-- End -->
+
+
+
+{% endblock %}

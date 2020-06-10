@@ -1,0 +1,96 @@
+{% load static %}
+<!doctype html>
+<html lang="zxx">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Vendors Min CSS -->
+        <link rel="stylesheet" href="{% static 'assets/css/vendors.min.css' %}">
+        <!-- Style CSS -->
+        <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+        <!-- Responsive CSS -->
+        <link rel="stylesheet" href="{% static 'assets/css/responsive.css' %}">
+
+        <title>Prueba Django for Sameer</title>
+
+        <link rel="icon" type="image/png" href="{% static 'assets/img/favicon.png' %}">
+    </head>
+
+    <body>
+        {% block content %}
+        <!-- Start Login Area -->
+        <div class="login-area">
+            <div class="d-table">
+                <div class="d-table-cell">
+                    <div class="login-form">
+                        <div class="logo">
+                            <a href="dashboard-analytics.html"><img src="{% static 'assets/img/small-logo.png' %}" alt="image"></a>
+                             <span>Valentin</span>
+                        </div>
+
+                        <h2>Welcome</h2>
+
+                        <form autocomplete="off">
+                            <div class="form-group">
+                                <input type="text" class="form-control" autocomplete="new-text" name="email" placeholder="Email">
+                                <span class="label-title"><i class='bx bx-user'></i></span>
+                            </div>
+
+                            <div class="form-group">
+                                <input type="password" class="form-control" autocomplete="new-text" name="password" placeholder="Password">
+                                <span class="label-title"><i class='bx bx-lock'></i></span>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="remember-forgot">
+                                    <label class="checkbox-box">Remember me
+                                        <input type="checkbox">
+                                        <span class="checkmark"></span>
+                                    </label>
+
+                                    <a href="forgot-password.html" class="forgot-password">Forgot password?</a>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="login-btn">Login</button>
+
+                            <p class="mb-0">Don’t have an account? <a href="register.html">Sign Up</a></p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endblock %}
+        <!-- End Login Area -->
+        
+
+        <!-- Vendors Min JS -->
+        <script src="{% static 'assets/js/vendors.min.js' %}"></script>
+
+        <!-- ApexCharts JS -->
+        <script src="{% static 'assets/js/apexcharts/apexcharts.min.js' %}"></script>
+
+        <!-- ChartJS -->
+        <div class="chartjs-colors"> <!-- To use template colors with Javascript -->
+            <div class="bg-primary"></div>
+            <div class="bg-primary-light"></div>
+            <div class="bg-secondary"></div>
+            <div class="bg-info"></div>
+            <div class="bg-success"></div>
+            <div class="bg-success-light"></div>
+            <div class="bg-danger"></div>
+            <div class="bg-warning"></div>
+            <div class="bg-purple"></div>
+            <div class="bg-pink"></div>
+        </div>
+        
+        <!-- jvectormap Min JS -->
+        <script src="{% static 'assets/js/jvectormap-1.2.2.min.js' %}"></script>
+        <!-- jvectormap World Mil JS -->
+        <script src="{% static 'assets/js/jvectormap-world-mill-en.js' %}"></script>
+        <!-- Custom JS -->
+        <script src="{% static 'assets/js/custom.js' %}"></script>
+    </body>
+</html>
